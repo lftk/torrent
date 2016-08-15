@@ -12,12 +12,14 @@ type FileInfo struct {
 	MD5    string   `bencode:"md5sum"`
 	Length int64    `bencode:"length"`
 	Path   []string `bencode:"path"`
+	PathU8 []string `bencode:"path.utf-8"`
 }
 
 // MetaData represent a metadata of torrent
 type MetaData struct {
 	// Single file
 	Name   string `bencode:"name"`
+	NameU8 string `bencode:"name.utf-8"`
 	Length int64  `bencode:"length"`
 	MD5    string `bencode:"md5sum"`
 	// Multiple files
