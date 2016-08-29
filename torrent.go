@@ -53,7 +53,14 @@ func Decode(b []byte) (m *MetaInfo, err error) {
 	if err != nil {
 		return
 	}
-	data, err := bencode.EncodeBytes(&m.Data)
+	info := new(struct {
+		Data interface{} `bencode:"info"`
+	})
+	err = bencode.DecodeBytes(b, info)
+	if err != nil {
+		return
+	}
+	data, err := bencode.EncodeBytes(info.Data)
 	if err != nil {
 		return
 	}

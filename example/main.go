@@ -24,17 +24,25 @@ func dump(m *torrent.MetaInfo) {
 	fmt.Println("Comment:", m.Comment)
 	fmt.Println("Created By:", m.CreatedBy)
 	fmt.Println("Encoding:", m.Encoding)
-	fmt.Printf("InfoHash: %X\n", m.Hash)
+	fmt.Printf("InfoHash: %x\n", m.Hash)
 	fmt.Println("Info:")
 	fmt.Println("\tPiece Length:", m.Data.PieceLength)
 	fmt.Println("\tPrivate:", m.Data.Private)
-	fmt.Println("\tName:", m.Data.Name)
+	if m.Data.NameU8 != "" {
+		fmt.Println("\tName:", m.Data.NameU8)
+	} else {
+		fmt.Println("\tName:", m.Data.Name)
+	}
 	fmt.Println("\tLength:", m.Data.Length)
 	fmt.Println("\tMd5sum:", m.Data.MD5)
 	fmt.Println("\tFiles:")
 	for _, file := range m.Data.Files {
 		fmt.Println("\t\tLength:", file.Length)
-		fmt.Println("\t\tPath:", strings.Join(file.Path, "/"))
+		if file.PathU8 != nil {
+			fmt.Println("\t\tPath:", strings.Join(file.PathU8, "/"))
+		} else {
+			fmt.Println("\t\tPath:", strings.Join(file.Path, "/"))
+		}
 		fmt.Println("\t\tMd5sum:", file.MD5)
 	}
 }
